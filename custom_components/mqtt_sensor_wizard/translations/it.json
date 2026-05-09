@@ -32,5 +32,26 @@
         "error": {
             "cannot_connect": "Connessione al broker fallita"
         }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "title": "Modifica Opzioni Sensore",
+                "description": "Usa template Jinja2 (es. usa value o value_json.temperatura)",
+                "data": {
+                    "broker": "Indirizzo Broker",
+                    "port": "Porta",
+                    "username": "Username",
+                    "password": "Password",
+                    "template": "Template Valore",
+                    "device_class": "Classe Dispositivo",
+                    "state_class": "Classe Stato",
+                    "unit_of_measurement": "Unità di Misura"
+                }
+            }
+        },
+        "error": {
+            "cannot_connect": "Connessione al broker fallita"
+        }
     }
 }

@@ -12,8 +12,16 @@ _LOGGER = logging.getLogger(__name__)
 
 async def async_setup_entry(hass, config_entry, async_add_entities):
     """Configura il sensore dall'entry creato nel config flow."""
-    config = config_entry.data
+    # Uniamo i dati iniziali con le eventuali opzioni aggiornate successivamente
+    config = {**config_entry.data, **config_entry.options}
     async_add_entities([MqttWizardSensor(hass, config)], True)
+
+    # Registra un listener per ricaricare l'entità quando si modificano le opzioni
+    config_entry.async_on_unload(config_entry.add_update_listener(async_reload_entry))
+
+async def async_reload_entry(hass, config_entry):
+    """Ricarica l'integrazione quando le opzioni cambiano."""
+    await hass.config_entries.async_reload(config_entry.entry_id)
 
 class MqttWizardSensor(SensorEntity):
     """Sensore MQTT con supporto a Template e Classi native."""

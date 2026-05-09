@@ -2,19 +2,17 @@
     "config": {
         "step": {
             "user": {
-                "title": "MQTT Sensor Wizard",
-                "description": "Set up a new sensor by monitoring a specific topic.",
+                "title": "MQTT Sensor Configuration",
                 "data": {
                     "sensor_name": "Sensor Name",
                     "topic": "MQTT Topic",
-                    "is_remote_broker": "Is this a remote broker?"
+                    "is_remote_broker": "Use External Broker?"
                 }
             },
             "remote": {
                 "title": "Remote Broker Details",
-                "description": "Please enter the connection details for the external broker.",
                 "data": {
-                    "broker": "Broker Address (IP or Hostname)",
+                    "broker": "Broker Address",
                     "port": "Port",
                     "username": "Username",
                     "password": "Password"
@@ -22,7 +20,7 @@
             },
             "options": {
                 "title": "Advanced Options",
-                "description": "Customize how the value is displayed. Use `<value>` to represent the raw data (e.g., `<value> °C`).",
+                "description": "Use Jinja2 template (e.g. use value or value_json.temperature)",
                 "data": {
                     "template": "Value Template",
                     "device_class": "Device Class",
@@ -32,12 +30,28 @@
             }
         },
         "error": {
-            "cannot_connect": "Failed to connect to the broker. Check your settings.",
-            "invalid_auth": "Invalid username or password",
-            "unknown": "Unexpected error"
+            "cannot_connect": "Failed to connect to broker"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "title": "Modify Sensor Options",
+                "description": "Use Jinja2 template (e.g. use value or value_json.temperature)",
+                "data": {
+                    "broker": "Broker Address",
+                    "port": "Port",
+                    "username": "Username",
+                    "password": "Password",
+                    "template": "Value Template",
+                    "device_class": "Device Class",
+                    "state_class": "State Class",
+                    "unit_of_measurement": "Unit of Measurement"
+                }
+            }
         },
-        "abort": {
-            "already_configured": "This sensor is already configured."
+        "error": {
+            "cannot_connect": "Failed to connect to broker"
         }
     }
 }

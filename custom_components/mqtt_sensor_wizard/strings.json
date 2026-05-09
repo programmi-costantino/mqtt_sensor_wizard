@@ -2,35 +2,56 @@
     "config": {
         "step": {
             "user": {
-                "title": "Configurazione Sensore MQTT",
+                "title": "MQTT Sensor Configuration",
                 "data": {
-                    "sensor_name": "Nome Sensore",
-                    "topic": "Topic MQTT",
-                    "is_remote_broker": "Usa Broker Esterno?"
+                    "sensor_name": "Sensor Name",
+                    "topic": "MQTT Topic",
+                    "is_remote_broker": "Use External Broker?"
                 }
             },
             "remote": {
-                "title": "Dati Broker Remoto",
+                "title": "Remote Broker Details",
                 "data": {
-                    "broker": "Indirizzo Broker",
-                    "port": "Porta",
+                    "broker": "Broker Address",
+                    "port": "Port",
                     "username": "Username",
                     "password": "Password"
                 }
             },
             "options": {
-                "title": "Opzioni Avanzate",
-                "description": "Usa template Jinja2 (es. usa value o value_json.temperatura)",
+                "title": "Advanced Options",
+                "description": "Use Jinja2 template (e.g. use value or value_json.temperature)",
                 "data": {
-                    "template": "Template Valore",
-                    "device_class": "Classe Dispositivo",
-                    "state_class": "Classe Stato",
-                    "unit_of_measurement": "Unità di Misura"
+                    "template": "Value Template",
+                    "device_class": "Device Class",
+                    "state_class": "State Class",
+                    "unit_of_measurement": "Unit of Measurement"
                 }
             }
         },
         "error": {
-            "cannot_connect": "Connessione al broker fallita"
+            "cannot_connect": "Failed to connect to broker"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "title": "Modify Sensor Options",
+                "description": "Use Jinja2 template (e.g. use value or value_json.temperature)",
+                "data": {
+                    "broker": "Broker Address",
+                    "port": "Port",
+                    "username": "Username",
+                    "password": "Password",
+                    "template": "Value Template",
+                    "device_class": "Device Class",
+                    "state_class": "State Class",
+                    "unit_of_measurement": "Unit of Measurement"
+                }
+            }
+        },
+        "error": {
+            "cannot_connect": "Failed to connect to broker"
         }
     }
 }
