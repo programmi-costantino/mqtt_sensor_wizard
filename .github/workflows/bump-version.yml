@@ -16,7 +16,7 @@ permissions:
 jobs:
   bump:
     name: Bump ${{ inputs.bump }} version
-    runs-on: arc-runner-set
+    runs-on: [tier-mid]
     steps:
       - uses: actions/checkout@v6
         with:

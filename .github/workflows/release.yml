@@ -11,7 +11,7 @@ jobs:
   release:
     name: Build ZIP and create GitHub Release
     # MODIFICATO: puntiamo al sistema autoscale
-    runs-on: arc-runner-set 
+    runs-on: [tier-mid]
     steps:
       - uses: actions/checkout@v6
 
