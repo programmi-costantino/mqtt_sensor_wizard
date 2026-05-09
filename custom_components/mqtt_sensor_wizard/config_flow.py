@@ -3,6 +3,7 @@ import paho.mqtt.client as paho_mqtt
 from paho.mqtt.enums import CallbackAPIVersion
 from homeassistant import config_entries
 from homeassistant.components.sensor import SensorDeviceClass, SensorStateClass
+from homeassistant.helpers import selector
 from .const import DOMAIN
 
 class MqttWizardConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
@@ -63,21 +64,37 @@ class MqttWizardConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     async def async_step_options(self, user_input=None):
         """Terzo step: Template e Classi del sensore."""
         if user_input is not None:
+            # Converte la stringa "none" della UI in un reale valore None per Python
+            if user_input.get("device_class") == "none":
+                user_input["device_class"] = None
+            if user_input.get("state_class") == "none":
+                user_input["state_class"] = None
+
             self.sensor_data.update(user_input)
             return self.async_create_entry(
                 title=self.sensor_data["sensor_name"], 
                 data=self.sensor_data
             )
 
-        device_classes = [None] + sorted([cls.value for cls in SensorDeviceClass])
-        state_classes = [None] + sorted([cls.value for cls in SensorStateClass])
+        device_classes = ["none"] + sorted([cls.value for cls in SensorDeviceClass])
+        state_classes = ["none"] + sorted([cls.value for cls in SensorStateClass])
 
         return self.async_show_form(
             step_id="options",
             data_schema=vol.Schema({
-                vol.Optional("template", default="<value>"): str,
-                vol.Optional("device_class"): vol.In(device_classes),
-                vol.Optional("state_class"): vol.In(state_classes),
+                vol.Optional("template"): str,
+                vol.Optional("device_class", default="none"): selector.SelectSelector(
+                    selector.SelectSelectorConfig(
+                        options=device_classes,
+                        mode=selector.SelectSelectorMode.DROPDOWN,
+                    )
+                ),
+                vol.Optional("state_class", default="none"): selector.SelectSelector(
+                    selector.SelectSelectorConfig(
+                        options=state_classes,
+                        mode=selector.SelectSelectorMode.DROPDOWN,
+                    )
+                ),
                 vol.Optional("unit_of_measurement"): str,
             })
         )

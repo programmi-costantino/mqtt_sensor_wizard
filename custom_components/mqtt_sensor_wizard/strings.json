@@ -20,7 +20,7 @@
             },
             "options": {
                 "title": "Opzioni Avanzate",
-                "description": "Usa `<value>` nel template (es: `<value> °C`)",
+                "description": "Usa template Jinja2 (es. usa value o value_json.temperatura)",
                 "data": {
                     "template": "Template Valore",
                     "device_class": "Classe Dispositivo",

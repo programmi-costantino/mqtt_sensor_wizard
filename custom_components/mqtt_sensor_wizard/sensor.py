@@ -1,9 +1,11 @@
 import logging
+import json
 import paho.mqtt.client as paho_mqtt
 from paho.mqtt.enums import CallbackAPIVersion
 from homeassistant.components.sensor import SensorEntity
 from homeassistant.components import mqtt
 from homeassistant.core import callback
+from homeassistant.helpers.template import Template
 from .const import DOMAIN
 
 _LOGGER = logging.getLogger(__name__)
@@ -22,7 +24,15 @@ class MqttWizardSensor(SensorEntity):
         self._attr_name = config.get("sensor_name")
         self._topic = config.get("topic")
         self._is_remote = config.get("is_remote_broker", False)
-        self._template = config.get("template", "<value>")
+        
+        template_str = config.get("template")
+        if template_str and "<value>" in template_str:
+            template_str = template_str.replace("<value>", "{{ value }}")
+            
+        if template_str:
+            self._template = Template(template_str, self.hass)
+        else:
+            self._template = None
         self._attr_device_class = config.get("device_class")
         self._attr_state_class = config.get("state_class")
         self._attr_native_unit_of_measurement = config.get("unit_of_measurement")
@@ -63,10 +73,21 @@ class MqttWizardSensor(SensorEntity):
             _LOGGER.error("Errore remoto %s: %s", self._attr_name, e)
 
     def _update_state(self, payload):
-        """Sostituisce <value> nel template e aggiorna HA."""
+        """Valuta il template Jinja2 e aggiorna HA."""
         try:
             val = str(payload)
-            self._attr_native_value = self._template.replace("<value>", val) if self._template else val
+            if self._template is not None:
+                variables = {"value": val}
+                # Se il payload è un JSON, permettiamo l'uso di value_json nel template
+                try:
+                    variables["value_json"] = json.loads(val)
+                except Exception:
+                    pass
+                
+                self._attr_native_value = self._template.async_render(variables=variables, parse_result=True)
+            else:
+                self._attr_native_value = val
+                
             self.async_write_ha_state()
         except Exception as e:
             _LOGGER.error("Errore template su %s: %s", self._attr_name, e)
