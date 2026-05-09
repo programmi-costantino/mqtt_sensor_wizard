@@ -39,14 +39,20 @@
                 "title": "Modify Sensor Options",
                 "description": "Use Jinja2 template (e.g. use value or value_json.temperature)",
                 "data": {
-                    "broker": "Broker Address",
-                    "port": "Port",
-                    "username": "Username",
-                    "password": "Password",
+                    "is_remote_broker": "Use External Broker?",
                     "template": "Value Template",
                     "device_class": "Device Class",
                     "state_class": "State Class",
                     "unit_of_measurement": "Unit of Measurement"
+                }
+            },
+            "remote": {
+                "title": "Remote Broker Details",
+                "data": {
+                    "broker": "Broker Address",
+                    "port": "Port",
+                    "username": "Username",
+                    "password": "Password"
                 }
             }
         },
