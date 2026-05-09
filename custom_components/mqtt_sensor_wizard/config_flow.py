@@ -1,9 +1,10 @@
 import voluptuous as vol
 import paho.mqtt.client as paho_mqtt
+from paho.mqtt.enums import CallbackAPIVersion
 from homeassistant import config_entries
 from homeassistant.core import callback
 
-from .const import DOMAIN # Assicurati di avere DOMAIN = "mqtt_sensor_wizard" in const.py
+from .const import DOMAIN
 
 class MqttWizardConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     """Gestisce il flusso di configurazione per MQTT Sensor Wizard."""
@@ -18,16 +19,13 @@ class MqttWizardConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         if user_input is not None:
             self.sensor_data.update(user_input)
             if user_input.get("is_remote_broker"):
-                # Se è un broker remoto, passa allo step successivo
                 return await self.async_step_remote()
             else:
-                # Se è locale, crea subito l'entry
                 return self.async_create_entry(
                     title=self.sensor_data["sensor_name"], 
                     data=self.sensor_data
                 )
 
-        # Schema della prima schermata
         return self.async_show_form(
             step_id="user",
             data_schema=vol.Schema({
@@ -41,7 +39,7 @@ class MqttWizardConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         """Secondo step: Dati di connessione del broker remoto con validazione."""
         errors = {}
         if user_input is not None:
-            # Eseguiamo un test di connessione per validare i dati inseriti
+            # Test di connessione compatibile con paho-mqtt 2.x
             success = await self.hass.async_add_executor_job(
                 self._test_mqtt_connection,
                 user_input["broker"],
@@ -57,10 +55,8 @@ class MqttWizardConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                     data=self.sensor_data
                 )
             else:
-                # Errore definito nel tuo strings.json / translations
                 errors["base"] = "cannot_connect"
 
-        # Schema della seconda schermata (solo per broker remoto)
         return self.async_show_form(
             step_id="remote",
             data_schema=vol.Schema({
@@ -73,8 +69,7 @@ class MqttWizardConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         )
 
     async def async_step_import(self, import_data):
-        """Gestisce l'importazione automatica se configurato in configuration.yaml."""
-        # Evita duplicati basandosi su nome e topic
+        """Gestisce l'importazione automatica da configuration.yaml."""
         unique_id = f"{DOMAIN}_{import_data.get('sensor_name')}_{import_data.get('topic')}"
         await self.async_set_unique_id(unique_id)
         self._abort_if_unique_id_configured()
@@ -85,12 +80,11 @@ class MqttWizardConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         )
 
     def _test_mqtt_connection(self, broker, port, user, pwd):
-        """Funzione di test per validare le credenziali del broker remoto."""
-        client = paho_mqtt.Client()
+        """Funzione di test per validare le credenziali (paho-mqtt 2.x)."""
+        client = paho_mqtt.Client(CallbackAPIVersion.VERSION1) 
         if user:
             client.username_pw_set(user, pwd)
         try:
-            # Timeout rapido per non bloccare la UI troppo a lungo
             client.connect(broker, port, keepalive=5)
             client.disconnect()
             return True
