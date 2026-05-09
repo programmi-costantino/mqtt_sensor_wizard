@@ -48,13 +48,13 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: simple_pid_controller.zip
+          files: mqtt_sensor_wizard.zip
           body: |
             ## Installation via HACS
             Install or update via HACS — the new version will be offered automatically.
 
             ## Manual installation
-            Download `simple_pid_controller.zip`, extract and copy `simple_pid_controller/` to your `custom_components/` directory.
+            Download `mqtt_sensor_wizard.zip`, extract and copy `mqtt_sensor_wizard/` to your `custom_components/` directory.
 
             ${{ steps.changelog.outputs.changelog }}
           generate_release_notes: false
