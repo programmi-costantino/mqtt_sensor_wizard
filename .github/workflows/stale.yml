@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   stale:
-    runs-on: [tier-mid]
+    runs-on: "tier-mid"
     steps:
       - uses: actions/stale@v10
         with:

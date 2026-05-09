@@ -10,7 +10,7 @@ permissions:
 jobs:
   label_issues:
     name: Automatically label issues
-    runs-on: [tier-mid]
+    runs-on: "tier-mid"
     steps:
       - uses: github/issue-labeler@v3.4
         with:
