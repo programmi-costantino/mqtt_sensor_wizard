@@ -1,6 +1,6 @@
 {
-  "name": "<name>",
+  "name": "MQTT Sensor Wizard",
   "render_readme": true,
   "zip_release": true,
-  "filename": "<filename>.zip"
+  "filename": "mqtt_sensor_wizard.zip"
 }

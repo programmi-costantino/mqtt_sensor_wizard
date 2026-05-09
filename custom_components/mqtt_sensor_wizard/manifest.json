@@ -1,0 +1,10 @@
+{
+    "domain": "mqtt_sensor_wizard",
+    "name": "MQTT Sensor Wizard",
+    "documentation": "https://github.com/programmi-costantino/mqtt_sensor_wizard",
+    "dependencies": ["mqtt"],
+    "requirements": ["paho-mqtt==1.6.1"],
+    "codeowners": ["@programmi-costantino"],
+    "version": "1.0.0",
+    "iot_class": "local_push"
+}

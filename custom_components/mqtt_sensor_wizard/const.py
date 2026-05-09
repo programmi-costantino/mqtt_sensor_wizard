@@ -1,0 +1,1 @@
+DOMAIN = "mqtt_sensor_wizard"

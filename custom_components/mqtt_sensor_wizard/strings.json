@@ -1,0 +1,33 @@
+{
+    "config": {
+        "step": {
+            "user": {
+                "title": "Configurazione Sensore MQTT",
+                "description": "Inserisci i dati del sensore che vuoi creare.",
+                "data": {
+                    "sensor_name": "Nome del sensore",
+                    "topic": "Topic MQTT da monitorare",
+                    "is_remote_broker": "Il broker è un broker remoto?"
+                }
+            },
+            "remote": {
+                "title": "Dati Broker Remoto",
+                "description": "Inserisci i dettagli di connessione per il broker MQTT esterno.",
+                "data": {
+                    "broker": "Indirizzo del Broker (IP o Hostname)",
+                    "port": "Porta del Broker",
+                    "username": "Nome utente (opzionale)",
+                    "password": "Password (opzionale)"
+                }
+            }
+        },
+        "error": {
+            "cannot_connect": "Impossibile connettersi al broker",
+            "invalid_auth": "Autenticazione non valida",
+            "unknown": "Errore imprevisto"
+        },
+        "abort": {
+            "already_configured": "Questo sensore è già stato configurato."
+        }
+    }
+}

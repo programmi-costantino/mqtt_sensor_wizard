@@ -1,0 +1,33 @@
+{
+    "config": {
+        "step": {
+            "user": {
+                "title": "MQTT Sensor Wizard",
+                "description": "Set up a new sensor by monitoring a specific topic.",
+                "data": {
+                    "sensor_name": "Sensor Name",
+                    "topic": "MQTT Topic",
+                    "is_remote_broker": "Is this a remote broker?"
+                }
+            },
+            "remote": {
+                "title": "Remote Broker Details",
+                "description": "Please enter the connection details for the external broker.",
+                "data": {
+                    "broker": "Broker Address (IP or Hostname)",
+                    "port": "Port",
+                    "username": "Username",
+                    "password": "Password"
+                }
+            }
+        },
+        "error": {
+            "cannot_connect": "Failed to connect to the broker. Check your settings.",
+            "invalid_auth": "Invalid username or password",
+            "unknown": "Unexpected error"
+        },
+        "abort": {
+            "already_configured": "This sensor is already configured."
+        }
+    }
+}
