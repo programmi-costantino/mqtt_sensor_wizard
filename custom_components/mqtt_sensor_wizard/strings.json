@@ -3,31 +3,34 @@
         "step": {
             "user": {
                 "title": "Configurazione Sensore MQTT",
-                "description": "Inserisci i dati del sensore che vuoi creare.",
                 "data": {
-                    "sensor_name": "Nome del sensore",
-                    "topic": "Topic MQTT da monitorare",
-                    "is_remote_broker": "Il broker è un broker remoto?"
+                    "sensor_name": "Nome Sensore",
+                    "topic": "Topic MQTT",
+                    "is_remote_broker": "Usa Broker Esterno?"
                 }
             },
             "remote": {
                 "title": "Dati Broker Remoto",
-                "description": "Inserisci i dettagli di connessione per il broker MQTT esterno.",
                 "data": {
-                    "broker": "Indirizzo del Broker (IP o Hostname)",
-                    "port": "Porta del Broker",
-                    "username": "Nome utente (opzionale)",
-                    "password": "Password (opzionale)"
+                    "broker": "Indirizzo Broker",
+                    "port": "Porta",
+                    "username": "Username",
+                    "password": "Password"
+                }
+            },
+            "options": {
+                "title": "Opzioni Avanzate",
+                "description": "Usa `<value>` nel template (es: `<value> °C`)",
+                "data": {
+                    "template": "Template Valore",
+                    "device_class": "Classe Dispositivo",
+                    "state_class": "Classe Stato",
+                    "unit_of_measurement": "Unità di Misura"
                 }
             }
         },
         "error": {
-            "cannot_connect": "Impossibile connettersi al broker",
-            "invalid_auth": "Autenticazione non valida",
-            "unknown": "Errore imprevisto"
-        },
-        "abort": {
-            "already_configured": "Questo sensore è già stato configurato."
+            "cannot_connect": "Connessione al broker fallita"
         }
     }
 }

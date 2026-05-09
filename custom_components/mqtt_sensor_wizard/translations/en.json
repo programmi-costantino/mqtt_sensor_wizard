@@ -19,6 +19,16 @@
                     "username": "Username",
                     "password": "Password"
                 }
+            },
+            "options": {
+                "title": "Advanced Options",
+                "description": "Customize how the value is displayed. Use `<value>` to represent the raw data (e.g., `<value> °C`).",
+                "data": {
+                    "template": "Value Template",
+                    "device_class": "Device Class",
+                    "state_class": "State Class",
+                    "unit_of_measurement": "Unit of Measurement"
+                }
             }
         },
         "error": {
