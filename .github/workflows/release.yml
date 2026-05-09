@@ -25,8 +25,8 @@ jobs:
         run: |
           # Installiamo zip se non presente (nei container è spesso assente)
           sudo apt-get update && sudo apt-get install -y zip
-          cd custom_components/simple_pid_controller/
-          zip ../../simple_pid_controller.zip -r ./
+          cd custom_components/mqtt_sensor_wizard/
+          zip ../../mqtt_sensor_wizard.zip -r ./
 
       - name: Generate changelog
         id: changelog
